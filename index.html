@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Para o Caíque 💌</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fce4ec;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .envelope {
+      width: 500px;
+      height: 500px;
+      background: #c2185b;
+      position: relative;
+      border-radius: 100px;
+      overflow: hidden;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+    .envelope::before {
+      content: "💌 ";
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.4em;
+      z-index: 3;
+      pointer-events: none;
+      text-align: center;
+    }
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 250px solid transparent;
+      border-right: 250px solid transparent;
+      border-bottom: 100px solid #e91e63;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transition: transform 0.5s ease;
+      transform-origin: top center;
+    }
+    .card {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      transition: top 0.5s ease, opacity 0.5s ease;
+      z-index: 1;
+      opacity: 0;
+    }
+    .envelope.aberto .flap {
+      transform: rotateX(-180deg);
+    }
+    .envelope.aberto .card {
+      top: 0;
+      opacity: 1;
+    }
+    .card h2 {
+    color: #c2185b;
+    margin: 0 0 10px 0; /* Adiciona um pequeno espaço inferior */
+    font-size: 1.4em;
+    }
+    .card p {
+    margin-top: 0; /* Remove espaço entre o título e o parágrafo */
+    font-size: 1em;
+    color: #444;
+    }
+    .hearts {
+      font-size: 2em;
+      color: #e91e63;
+      margin-top: 10px;
+    }
+    .photo {
+      width: 50%;
+      margin-top: 30px;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #ad1457;
+    }
+    .spell {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #6a1b9a;
+      font-style: italic;
+      animation: flicker 1.2s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    .final-message {
+      margin-top: 30px;
+      font-size: 1em;
+      color: #880e4f;
+      font-weight: bold;
+      display: none;
+      animation: fadeIn 2s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" loop muted>
+    <source src="assets/musica.mp3" type="audio/mp3">
+    Seu navegador não suporta áudio.
+  </audio>
+  <div class="envelope" id="envelope">
+    <div class="flap" id="flap"></div>
+    <div class="card" id="card">
+      <h2>Eu te amo, Caíque ❤️</h2>
+      <p>“Depois de todo esse tempo?” — “Sempre.”<br>Você é minha magia no mundo real.</p>
+      <img src="foto.jpg" alt="Foto de nós dois juntos sorrindo" class="photo">
+      <div class="hearts">💖 💘 💝 💗</div>
+    </div>
+  </div>
+  <div class="spell" id="spell">🪄 Diga comigo: Alohomora!</div>
+  <button onclick="abrirEnvelope()" aria-label="Abrir envelope com feitiço mágico">
+    Lançar Feitiço
+  </button>
+  <div class="final-message" id="finalMessage">
+    ✨ Feitiço concluído! Agora sim… você pode abrir a caixa que te entreguei. 💝
+  </div>
+  <script>
+    function abrirEnvelope() {
+      const envelope = document.getElementById("envelope");
+      const spell = document.getElementById("spell");
+      const music = document.getElementById("bg-music");
+      envelope.classList.add("aberto");
+      spell.innerText = "✨ Expecto Amorium!";
+      music.muted = false;
+      music.play();
+      setTimeout(() => {
+        document.getElementById("finalMessage").style.display = "block";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
